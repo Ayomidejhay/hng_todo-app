@@ -1,137 +1,3 @@
-// "use client";
-
-// import { useEffect, useMemo, useState } from "react";
-// import Image from "next/image";
-// import TodoCard from "./components/TodoCard";
-
-
-// // ---------------- TYPES ----------------
-// export type Priority = "Low" | "Medium" | "High";
-// export type Status = "Pending" | "In Progress" | "Done";
-
-// export interface Todo {
-//   id: string;
-//   title: string;
-//   description: string;
-//   dueDate: string; // ISO
-//   priority: Priority;
-//   status: Status;
-//   tags: string[];
-//   completed: boolean;
-// }
-
-
-
-// // ---------------- STORAGE ----------------
-// const STORAGE_KEY = "todo-app-data";
-
-// function loadTodos(): Todo[] {
-//   if (typeof window === "undefined") return [];
-//   const raw = localStorage.getItem(STORAGE_KEY);
-//   return raw ? JSON.parse(raw) : [];
-// }
-
-// function saveTodos(todos: Todo[]) {
-//   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-// }
-
-
-// export default function Home() {
-//   const [todos, setTodos] = useState<Todo[]>(loadTodos());
-//   const [form, setForm] = useState<Todo | null>(null);
-
-//   useEffect(() => {
-//     saveTodos(todos);
-//   }, [todos]);
-
-//   const handleCreate = () => {
-//     setForm({
-//       id: Date.now().toString(),
-//       title: "",
-//       description: "",
-//       dueDate: new Date().toISOString(),
-//       priority: "Medium",
-//       status: "Pending",
-//       tags: ["work"],
-//       completed: false,
-//     });
-//   };
-
-//   const handleSave = () => {
-//     if (!form) return;
-//     setTodos((prev) => {
-//       const exists = prev.find((t) => t.id === form.id);
-//       if (exists) return prev.map((t) => (t.id === form.id ? form : t));
-//       return [form, ...prev];
-//     });
-//     setForm(null);
-//   };
-
-//   const handleDelete = (id: string) => {
-//     setTodos((prev) => prev.filter((t) => t.id !== id));
-//   };
-
-//   const handleToggle = (id: string) => {
-//     setTodos((prev) =>
-//       prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
-//     );
-//   };
-
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 p-4 sm:p-8">
-//       <div className="max-w-3xl mx-auto flex flex-col gap-4">
-//         <button onClick={handleCreate} className="bg-black text-white py-2 rounded-xl">
-//           + Add Todo
-//         </button>
-
-//        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-//          {todos.map((todo) => (
-//           <TodoCard
-//             key={todo.id}
-//             todo={todo}
-//             onToggle={handleToggle}
-//             onEdit={setForm}
-//             onDelete={handleDelete}
-//           />
-//         ))}
-//        </div>
-//       </div>
-
-//       {/* Modal */}
-//       {form && (
-//         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-//           <div className="bg-white p-6 rounded-2xl w-full max-w-md flex flex-col gap-3 text-black">
-//             <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Title" className="border p-2 rounded" />
-//             <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Description" className="border p-2 rounded" />
-
-//             <select value={form.priority} onChange={(e) => setForm({ ...form, priority: e.target.value as Priority })} className="border p-2 rounded">
-//               <option>Low</option>
-//               <option>Medium</option>
-//               <option>High</option>
-//             </select>
-
-//             <input type="datetime-local" onChange={(e) => setForm({ ...form, dueDate: new Date(e.target.value).toISOString() })} className="border p-2 rounded" />
-
-//             <input
-//               placeholder="Tags (comma separated)"
-//               onChange={(e) => setForm({ ...form, tags: e.target.value.split(",") })}
-//               className="border p-2 rounded"
-//             />
-
-//             <div className="flex gap-2 justify-end">
-//               <button onClick={() => setForm(null)}>Cancel</button>
-//               <button onClick={handleSave} className="bg-black text-white px-3 py-1 rounded">Save</button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -164,7 +30,7 @@ function saveTodos(todos: Todo[]) {
 }
 
 export default function Home() {
-  // ✅ FIX: Initialize state properly (NO useEffect needed)
+  
   const [todos, setTodos] = useState<Todo[]>(() => {
     const stored = loadTodos();
 
@@ -208,7 +74,7 @@ export default function Home() {
   const [form, setForm] = useState<Todo | null>(null);
   const [filter, setFilter] = useState("all");
 
-  // ✅ Persist to localStorage (correct usage of effect)
+  //  Persist to localStorage (correct usage of effect)
   useEffect(() => {
     saveTodos(todos);
   }, [todos]);

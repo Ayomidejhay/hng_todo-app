@@ -74,7 +74,7 @@ export default function Home() {
   const [form, setForm] = useState<Todo | null>(null);
   const [filter, setFilter] = useState("all");
 
-  //  Persist to localStorage (correct usage of effect)
+  //  Persist to localStorage 
   useEffect(() => {
     saveTodos(todos);
   }, [todos]);
